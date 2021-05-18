@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ViewCategory</title>
+    {% include 'adminWork/headerfile.html' %}
+</head>
+<body>
+{% include 'adminWork/navbarHead.html' %}
+<div>
+    <div class="text-center">
+        <h2>Category</h2>
+    </div>
+    <hr>
+    <div class="form-group">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <a href="addcateogry" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Category</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Descrption</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for foo in data %}
+                <tr>
+                    <td>{{ foo.name }}</td>
+                    <td>{{ foo.description }}</td>
+                    <td><a href="editCategoryPage?name={{ foo.name }}" class="text-warning"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="deletCategroy?name={{ foo.name }}"
+                           onclick="return confirm('Are you sure To delete {{ foo.name }}')" class="text-danger"><i
+                            class="fas fa-trash-alt"></i></a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% include 'adminWork/navbarfooter.html' %}
+</body>
+</html>

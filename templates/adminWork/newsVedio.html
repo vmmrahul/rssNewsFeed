@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>News Vedio</title>
+    {% include 'adminWork/headerfile.html' %}
+</head>
+<body>
+{% include 'adminWork/navbarHead.html' %}
+
+<div>
+    <div class="card">
+        <div class="card-header">
+            <h1>Add Vedios</h1>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            <strong>{{ message }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <form action="addNewsVedioAction" method="get">
+                {% if id != 'No' %}
+                    <div class="form-group">
+                        <label for="newsid">news Id</label>
+                        <input type="text" value="{{ id }}" readonly class="form-control" id="id" name="id">
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="description">description</label>
+                    <textarea name="description" required id="description" class="form-control" cols="30"
+                              rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="youTubeLink">YouTubeLink</label>
+                    <input type="text" required name="youTubeLink" id="youTubeLink" placeholder="youTube Link"
+                           class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <div class="text-center">
+            <h2>Vedio</h2>
+        </div>
+        <div>
+            <div class="row">
+                {% for datum in data %}
+                    <div class="col-6 mb-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>{{ datum.description }}</strong>
+                            </div>
+                            <div class="card-body">
+                                <iframe src="{{ datum.YouTubeLink }}" width="100%" frameborder="0"></iframe>
+                            </div>
+                            <div class="card-footer">
+                                <a href="deleteNewsVedio?id={{ datum.id }}" onclick="return confirm('Are you Sure To delete?')" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'adminWork/navbarfooter.html' %}
+</body>
+</html>

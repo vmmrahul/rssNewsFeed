@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Descripiton</title>
+    {% include 'adminWork/headerfile.html' %}
+</head>
+<body>
+{% include 'adminWork/navbarHead.html' %}
+<div>
+    <div class="text-center">
+        <h3>{{ data.title }}</h3>
+        <h6 class="text-secondary">{{ data.created_at }}</h6>
+        <div class="mt-5">
+            {{ data.description | safe }}
+        </div>
+    </div>
+</div>
+{% include 'adminWork/navbarfooter.html' %}
+</body>
+</html>
