@@ -41,5 +41,7 @@ urlpatterns = [
     path('deleteNewsVedio', deleteNewsVedio, name='deleteNewsVedio'),
 
     #
-    path('',Home,name='Home'),
+    path('', Home, name='Home'),
+    path('viewMyNews', viewMyNews, name='viewMyNews'),
+    path('navbarCategoryNews', navbarCategoryNews, name='navbarCategoryNews'),
 ]

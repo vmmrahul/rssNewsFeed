@@ -1,6 +1,6 @@
 import datetime
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from pymysql import *
 from django.contrib import messages
@@ -339,3 +339,31 @@ def Home(request):
         'myNews': myNews,
     }
     return render(request, 'users/index.html',content)
+
+
+def viewMyNews(request):
+    id = request.GET['id']
+    query = "SELECT `id`, `title`, `shortDescription`, `description`, `catName`, `created_at` FROM `news` where id='{}'".format(
+        id)
+    conn = makeConnections()
+    cr = conn.cursor()
+    cr.execute(query)
+    result = cr.fetchall()
+    description = result[0]['description'].replace("789987", "'")
+    description = description.replace("789#987", '"')
+    result[0]['description'] = description
+    return render(request, 'users/viewmyNews.html',{'data':result[0]})
+
+
+def navbarCategoryNews(request):
+    cat = request.GET['cat']
+    query = "SELECT `id`, `title`, `shortDescription`, `description`, `catName`, `created_at` FROM `news` where catName='{}'".format(cat)
+    conn = makeConnections()
+    cr = conn.cursor()
+    cr.execute(query)
+    result = cr.fetchall()
+
+    content = {
+        'result':result[:5]
+    }
+    return JsonResponse(content)

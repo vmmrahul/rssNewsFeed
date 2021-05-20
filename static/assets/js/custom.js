@@ -1,24 +1,24 @@
 /**************************************
-    File Name: custom.js
-    Template Name: Tech Blog
-    Created By: HTML.Design
-    http://themeforest.net/user/wpdestek
-**************************************/
+ File Name: custom.js
+ Template Name: Tech Blog
+ Created By: HTML.Design
+ http://themeforest.net/user/wpdestek
+ **************************************/
 
-(function($) {
+(function ($) {
     "use strict";
-    $(document).ready(function() {
-        $('#nav-expander').on('click', function(e) {
+    $(document).ready(function () {
+        $('#nav-expander').on('click', function (e) {
             e.preventDefault();
             $('body').toggleClass('nav-expanded');
         });
-        $('#nav-close').on('click', function(e) {
+        $('#nav-close').on('click', function (e) {
             e.preventDefault();
             $('body').removeClass('nav-expanded');
         });
     });
 
-    $(function() {
+    $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
 
@@ -26,19 +26,19 @@
         interval: 4000
     })
 
-    $(window).load(function() {
+    $(window).load(function () {
         $("#preloader").on(500).fadeOut();
         $(".preloader").on(600).fadeOut("slow");
     });
 
-    jQuery(window).scroll(function(){
+    jQuery(window).scroll(function () {
         if (jQuery(this).scrollTop() > 1) {
-            jQuery('.dmtop').css({bottom:"25px"});
+            jQuery('.dmtop').css({bottom: "25px"});
         } else {
-            jQuery('.dmtop').css({bottom:"-100px"});
+            jQuery('.dmtop').css({bottom: "-100px"});
         }
     });
-    jQuery('.dmtop').click(function(){
+    jQuery('.dmtop').click(function () {
         jQuery('html, body').animate({scrollTop: '0px'}, 800);
         return false;
     });
@@ -65,4 +65,44 @@ function openCategory(evt, catName) {
     // Show the current tab, and add an "active" class to the link that opened the tab
     document.getElementById(catName).style.display = "block";
     evt.currentTarget.className += " active";
-} 
+}
+
+function selectCategory(cateogry) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(JSON.parse(this.response));
+            var output = JSON.parse(this.response);
+
+
+            var myNewStr = "";
+            for (var i = 0; i <= output.length; i++) {
+                myNewStr += `
+                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div class="blog-box">
+                    <div class="post-media">
+                        <a href="tech-single.html" title="">
+                            <img src="{% static 'assets/' %}upload/tech_menu_01.jpg"
+                                 alt=""
+                                 class="img-fluid">
+                            <div class="hovereffect">
+                            </div><!-- end hover -->
+                            <span class="menucat">Science</span>
+                        </a>
+                    </div><!-- end media -->
+                    <div class="blog-meta">
+                        <h4><a href="tech-single.html" title="">Top 10+ care
+                            advice for your toenails</a></h4>
+                    </div><!-- end meta -->
+                    </div><!-- end blog-box -->
+                </div>
+            `;
+            }
+            console.log(myNewStr);
+            console.log(document.getElementById('mynews'));
+            document.getElementById('mynews').innerHTML = myNewStr;
+        }
+    };
+    xhttp.open("GET", "navbarCategoryNews?cat=" + cateogry, true);
+    xhttp.send();
+}
