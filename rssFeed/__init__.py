@@ -25,7 +25,7 @@ def trending(obj):
         NewsFeed = feedparser.parse("https://feeds.feedburner.com/gadgets360-latest")
 
     ndtvnewslist = []
-    for i in range(0, 20):
+    for i in range(0, len(NewsFeed)):
         dist = {}
         entry = NewsFeed.entries[i]
         # print(entry)
@@ -35,6 +35,6 @@ def trending(obj):
         dist['desc'] = entry.summary_detail
         dist['urlsdata'] = entry.link
         ndtvnewslist.append(dist)
-    return ndtvnewslist
+    return ndtvnewslist[:20]
 
-# print(trending('Tech'))
+# print(trending('/'))

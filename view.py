@@ -357,13 +357,10 @@ def viewMyNews(request):
 
 def navbarCategoryNews(request):
     cat = request.GET['cat']
-    query = "SELECT `id`, `title`, `shortDescription`, `description`, `catName`, `created_at` FROM `news` where catName='{}'".format(cat)
-    conn = makeConnections()
-    cr = conn.cursor()
-    cr.execute(query)
-    result = cr.fetchall()
+
+    result =rssFeed.trending(cat)
 
     content = {
-        'result':result[:5]
+        'result':result[:4]
     }
     return JsonResponse(content)

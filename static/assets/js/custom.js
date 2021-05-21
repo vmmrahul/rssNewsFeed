@@ -71,35 +71,19 @@ function selectCategory(cateogry) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.response));
-            var output = JSON.parse(this.response);
-
-
+            var output = JSON.parse(this.response)['result'];
             var myNewStr = "";
-            for (var i = 0; i <= output.length; i++) {
-                myNewStr += `
-                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                <div class="blog-box">
-                    <div class="post-media">
-                        <a href="tech-single.html" title="">
-                            <img src="{% static 'assets/' %}upload/tech_menu_01.jpg"
-                                 alt=""
-                                 class="img-fluid">
-                            <div class="hovereffect">
-                            </div><!-- end hover -->
-                            <span class="menucat">Science</span>
-                        </a>
-                    </div><!-- end media -->
-                    <div class="blog-meta">
-                        <h4><a href="tech-single.html" title="">Top 10+ care
-                            advice for your toenails</a></h4>
-                    </div><!-- end meta -->
-                    </div><!-- end blog-box -->
-                </div>
-            `;
+            for (var i = 0; i <= output.length-1; i++) {
+                myNewStr += '<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">';
+                myNewStr += '<div class="blog-box">';
+                myNewStr += '<div class="post-media">';
+                myNewStr += `<a target="_blank" href="${output[i].urlsdata}" title="">`;
+                myNewStr += `<img src="${output[i].fullimage}" alt="" class="img-fluid">`;
+                myNewStr += "<div class=\"hovereffect\"></div><span class=\"menucat\">Science</span></a></div>";
+                myNewStr += "<div class=\"blog-meta\">"
+                myNewStr += `<h4><a target="_blank" href="${output[i].urlsdata}" title="">${output[i]['title']}</a></h4>`
+                myNewStr += "</div></div></div>"
             }
-            console.log(myNewStr);
-            console.log(document.getElementById('mynews'));
             document.getElementById('mynews').innerHTML = myNewStr;
         }
     };
