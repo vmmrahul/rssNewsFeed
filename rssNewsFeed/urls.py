@@ -44,4 +44,6 @@ urlpatterns = [
     path('', Home, name='Home'),
     path('viewMyNews', viewMyNews, name='viewMyNews'),
     path('navbarCategoryNews', navbarCategoryNews, name='navbarCategoryNews'),
+    path('vedioNews', vedioNews, name='vedioNews'),
+    path('contactus', contactus, name='contactus'),
 ]
