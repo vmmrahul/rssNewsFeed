@@ -46,4 +46,5 @@ urlpatterns = [
     path('navbarCategoryNews', navbarCategoryNews, name='navbarCategoryNews'),
     path('vedioNews', vedioNews, name='vedioNews'),
     path('contactus', contactus, name='contactus'),
+    path('AllNewsViews', AllNewsViews, name='AllNewsViews'),
 ]

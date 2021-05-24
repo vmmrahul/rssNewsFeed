@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Site Metas -->
+    <title>Tech Blog -</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% include 'users/headerfiles.html' %}
+</head>
+<body>
+
+<div id="wrapper">
+    {% include 'users/navbar.html' %}
+    <div class="page-title lb single-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <h2><i class="fa fa-star bg-orange"></i> {{ cat }} <small
+                            class="hidden-xs-down hidden-sm-down"> </small></h2>
+                </div><!-- end col -->
+                <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">{{ cat }}</li>
+                    </ol>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end page-title -->
+
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                    {% for live in lives %}
+
+                        <div class="page-wrapper">
+                            <div class="blog-list clearfix">
+                                <div class="blog-box row">
+                                    <div class="col-md-4">
+                                        <div class="post-media">
+                                            <a target="_blank" href="{{ live.urlsdata }}" title="">
+                                                <img src="{{ live.fullimage }}" alt="" class="img-fluid">
+                                                <div class="hovereffect"></div>
+                                            </a>
+                                        </div><!-- end media -->
+                                    </div><!-- end col -->
+
+                                    <div class="blog-meta big-meta col-md-8">
+                                        <h4><a target="_blank" href="{{ live.urlsdata }}"
+                                               title="">{{ live.title }}</a></h4>
+                                        <p>{{ live.desc.value }}</p>
+                                        <small class="firstsmall"><a class="bg-orange" target="_blank"
+                                                                     href="{{ live.urlsdata }}"
+                                                                     title="">{{ cat }}</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+
+                                <hr class="invis">
+
+                            </div><!-- end blog-list -->
+                        </div><!-- end page-wrapper -->
+                    {% endfor %}
+
+
+                </div><!-- end col -->
+
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sidebar">
+                        <div class="widget">
+                            <h2 class="widget-title">Follow Us</h2>
+
+                            <div class="row text-center">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                    <a href="#" class="social-button facebook-button">
+                                        <i class="fa fa-facebook"></i>
+                                        <p>27k</p>
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                    <a href="#" class="social-button twitter-button">
+                                        <i class="fa fa-twitter"></i>
+                                        <p>98k</p>
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                    <a href="#" class="social-button google-button">
+                                        <i class="fa fa-google-plus"></i>
+                                        <p>17k</p>
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                    <a href="#" class="social-button youtube-button">
+                                        <i class="fa fa-youtube"></i>
+                                        <p>22k</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div><!-- end widget -->
+
+                        <div class="widget">
+                            <h2 class="widget-title">Trend Videos</h2>
+                            <div class="trend-videos">
+                                {% for foo in video %}
+                                    <div class="blog-box">
+                                        <div class="post-media">
+                                            <iframe src="{{ foo.YouTubeLink }}" width="100%" frameborder="0"></iframe>
+                                        </div><!-- end media -->
+                                        <div class="blog-meta">
+                                            <h4>{{ foo.description }}</h4>
+                                        </div><!-- end meta -->
+                                    </div><!-- end blog-box -->
+
+                                    <hr class="invis">
+                                {% endfor %}
+
+                            </div><!-- end videos -->
+                        </div><!-- end widget -->
+                        <div class="widget">
+                            <h2 class="widget-title">Popular Posts</h2>
+                            <div class="blog-list-widget">
+                                <div class="list-group">
+                                    {% for myNew in myNews %}
+                                        <a href="viewMyNews?id={{ myNew.id }}"
+                                           class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="w-100 justify-content-between">
+                                                <img src="{% static 'media/' %}{{ myNew.photo }}" alt=""
+                                                     class="img-fluid float-left">
+                                                <h5 class="mb-1"><small>{{ myNew.title | truncatewords:7 }}</small></h5>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+
+
+                                </div>
+                            </div><!-- end blog-list -->
+                        </div><!-- end widget -->
+
+
+                    </div><!-- end sidebar -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section>
+
+    {% include 'users/footer.html' %}
+</div>
+</body>
+</html>

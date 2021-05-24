@@ -452,3 +452,37 @@ def contactus(request):
             messages.success(request, 'Fail due to some Tech ishu!!!!')
         return redirect('contactus')
     return render(request, 'users/contact.html')
+
+def AllNewsViews(request):
+    cat = request.GET['cat']
+    result = rssFeed.trending(cat)
+
+
+    conn = makeConnections()
+    cr = conn.cursor()
+    query = "SELECT * FROM `news` where catName='{}'".format(cat)
+    cr.execute(query)
+    myNews = cr.fetchall()
+    for row in myNews:
+        description = row['description'].replace("789987", "'")
+        description = description.replace("789#987", '"')
+        row['description'] = description
+
+    query = "SELECT * FROM `videos`"
+    conn = makeConnections()
+    cr = conn.cursor()
+    cr.execute(query)
+    video = cr.fetchall()
+    for row in video[:8]:
+        description = row['description'].replace("789987", "'")
+        description = description.replace("789#987", '"')
+        row['description'] = description
+
+    content  = {
+        'cat':cat,
+        'lives':result,
+        'myNews': myNews,
+        'video': video,
+    }
+
+    return render(request, 'users/tech-category.html', content)
